@@ -9,10 +9,11 @@ const findByIdProduct = async (req, res) => {
   const { id } = req.params;
   const getById = await productService.findByIdProduct(id);
 
-  if (getById.message) {
+  if (getById) {
     return res.status(getById.code).json(getById.message);
   }
 
+  console.log('idProduct');
   res.status(200).json(getById);
 };
 
@@ -20,6 +21,7 @@ const createProduct = async (req, res) => {
   const { name, quantity } = req.body;
 
   const createSucess = await productService.createProduct(name, quantity);
+
   if (createSucess.message) {
     return res.status(createSucess.code).json({ message: createSucess.message });
   }
@@ -32,6 +34,10 @@ const updateProduct = async (req, res) => {
   const { name, quantity } = req.body;
 
   const updateStore = await productService.updateProduct(id, name, quantity);
+
+  if (updateStore.message) {
+    return res.status(updateStore.code).json({ message: updateStore.message });
+  }
 
   res.status(200).json(updateStore);
 };
