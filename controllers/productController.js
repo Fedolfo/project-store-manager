@@ -9,11 +9,10 @@ const findByIdProduct = async (req, res) => {
   const { id } = req.params;
   const getById = await productService.findByIdProduct(id);
 
-  if (getById) {
-    return res.status(getById.code).json(getById.message);
+  if (!getById) {
+    return res.status(404).json({ message: 'Product not found' });
   }
 
-  console.log('idProduct');
   res.status(200).json(getById);
 };
 
@@ -44,8 +43,13 @@ const updateProduct = async (req, res) => {
 
 const removeProduct = async (req, res) => {
   const { id } = req.params;
-  await productService.removeProduct(id);
-  res.status(204).end();
+  const deleteProduct = await productService.removeProduct(id);
+
+  if (deleteProduct.message) {
+    return res.status(deleteProduct.code).json({ message: deleteProduct.message });
+  }
+
+  res.status(200).json(deleteProduct[0]);
 };
 
 module.exports = {
