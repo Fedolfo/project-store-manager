@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-const storeController = require('./controllers/storeController');
+const productController = require('./controllers/productController');
 
 const app = express();
 // não remova esse endpoint, e para o avaliador funcionar
@@ -12,8 +12,14 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.post('/products', rescue(storeController.create));
+app.get('/products', rescue(productController.getAllProducts));
+app.get('/products/:id', rescue(productController.findByIdProduct));
+app.post('/products', rescue(productController.createProduct));
+app.put('/products/:id', rescue(productController.updateProduct));
+app.delete('/products/:id', rescue(productController.removeProduct));
 
-app.listen(process.env.PORT, () => {
-  console.log(`Escutando na porta ${process.env.PORT}`);
+const { PORT } = process.env;
+
+app.listen(PORT, () => {
+  console.log(`Escutando na porta ${PORT}`);
 });
