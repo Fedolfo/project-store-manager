@@ -1,11 +1,11 @@
 const connection = require('./connection');
 // https://github.com/tryber/sd-014-c-store-manager/pull/59 referência: Gessé Carlos
 const create = async (salesCreate) => {
-  const queryDate = 'INSERT INTO sales (date) VALUES (NOW())';
+  const queryDate = 'INSERT INTO StorageManager.sales (date) VALUES (NOW())';
   const [date] = await connection.execute(queryDate);
 
   salesCreate.forEach(async ({ product_id: productId, quantity }) => {
-    const [query] = `INSERT INTO sales_products
+    const [query] = `INSERT INTO StorageManager.sales_products
         (sale_id, product_id, quantity)
         VALUES (?, ?, ?)`;
     await connection.execute(query,

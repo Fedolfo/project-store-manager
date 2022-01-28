@@ -1,13 +1,13 @@
 const connection = require('./connection');
 
 const getAllProducts = async () => {
-  const query = 'SELECT * FROM products;';
+  const query = 'SELECT * FROM StorageManager.products;';
   const [allProducts] = await connection.execute(query);
   return allProducts;
 };
 
 const create = async (name, quantity) => {
-  const query = 'INSERT INTO products (name, quantity) VALUES (?, ?)';
+  const query = 'INSERT INTO StorageManager.products (name, quantity) VALUES (?, ?)';
   const [result] = await connection.execute(query, [name, quantity]);
 
   return {
@@ -18,7 +18,7 @@ const create = async (name, quantity) => {
 };
 
 const getById = async (id) => {
-  const query = 'SELECT * FROM products WHERE id = ?';
+  const query = 'SELECT * FROM StorageManager.products WHERE id = ?';
 
   const [result] = await connection.execute(query, [id]);
 
@@ -26,7 +26,7 @@ const getById = async (id) => {
 };
 
 const update = async (id, name, quantity) => {
-  const query = 'UPDATE products SET name = ?, quantity = ? WHERE id = ?';
+  const query = 'UPDATE StorageManager.products SET name = ?, quantity = ? WHERE id = ?';
 
   const [rows] = await connection.execute(query, [name, quantity, id]);
 
@@ -38,7 +38,7 @@ const update = async (id, name, quantity) => {
 };
 
 const remove = async (id) => {
-  const query = 'DELETE FROM products WHERE id = ?';
+  const query = 'DELETE FROM StorageManager.products WHERE id = ?';
 
   await connection.execute(query, [id]);
 };
