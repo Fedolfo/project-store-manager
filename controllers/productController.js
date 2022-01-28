@@ -21,10 +21,6 @@ const createProduct = async (req, res) => {
 
   const createSucess = await productService.createProduct(name, quantity);
 
-  if (createSucess.message) {
-    return res.status(createSucess.code).json({ message: createSucess.message });
-  }
-
   res.status(201).json(createSucess);
 };
 

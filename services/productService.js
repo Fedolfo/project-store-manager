@@ -1,10 +1,4 @@
 const productModel = require('../models/productModel');
-const error = require('../utils/validations');
-
-const verifyIfProductExists = async (name) => {
-  const verifyProduct = await productModel.getAllProducts();
-  return verifyProduct.find((product) => product.name === name);
-};
 
 const verifyIdProduct = async (id) => {
   const verifyProduct = await productModel.getAllProducts();
@@ -14,18 +8,7 @@ const verifyIdProduct = async (id) => {
 const getAllProducts = async () => productModel.getAllProducts();
 
 const createProduct = async (name, quantity) => {
-  const checkProduct = await verifyIfProductExists(name);
-  const checkError = error(name, quantity);
-
-  if (checkProduct !== undefined) {
-    return ({ code: 409, message: 'Product already exists' });
-  }
-
-  if (checkError.message) {
-    return checkError;
-  }
   const product = await productModel.create(name, quantity);
-
   return product;
 };
 
@@ -36,14 +19,8 @@ const findByIdProduct = async (id) => {
 
 const updateProduct = async (id, name, quantity) => {
   const checkIdProduct = await verifyIdProduct(id);
-  const checkError = error(name, quantity);
-
   if (checkIdProduct.length === 0) {
     return { code: 404, message: 'Product not found' };
-  }
-
-  if (checkError.message) {
-    return checkError;
   }
 
   return productModel.update(id, name, quantity);
