@@ -1,5 +1,5 @@
 const validateProductId = (req, res, next) => {
-  if (!req.body.some((sale) => sale.product_id)) {
+  if (!req.body.every((sale) => sale.product_id)) {
     return res.status(400)
       .json({ message: '"product_id" is required' });
   }
@@ -13,7 +13,7 @@ const validateSales = (req, res, next) => {
       .json({ message: '"quantity" must be a number larger than or equal to 1' });
   }
 
-  if (!req.body.some(({ quantity }) => quantity && quantity !== 0)) {
+  if (!req.body.every(({ quantity }) => quantity)) {
     return res.status(400)
       .json({ message: '"quantity" is required' });
   }

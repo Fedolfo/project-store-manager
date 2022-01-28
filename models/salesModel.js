@@ -5,18 +5,15 @@ const create = async (sales) => {
     'INSERT INTO sales (date) VALUES (NOW())',
   );
 
-  const salesProducts = sales.map(async ({ product_id: productId, quantity }) => {
-    await connection.execute(
-      `INSERT INTO sales_products
-        (sale_id, product_id, quantity)
-        VALUES (?, ?, ?)
-      `,
-      [row.insertId, productId, quantity],
-    );
-  });
-  await Promise.all(salesProducts);
-
-  return row;
+  Promise.all(
+    sales.map(async (product) => {
+      connection.execute(
+        'INSERT INTO sales_products (sale_id,product_id, quantity) VALUES (?,?,?);',
+        [row.insertId, product.product_id, product.quantity],
+      );
+    }),
+  );
+  return { id: row.insertId, itemsSold: sales };
 };
 
 module.exports = {
