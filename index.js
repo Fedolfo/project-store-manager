@@ -38,6 +38,10 @@ app.post('/sales',
   validateSales,
   rescue(salesController.createSales));
 
+app.get('/sales', rescue(salesController.getAllSales));
+
+app.get('/sales/:id', rescue(salesController.findByIdProduct));
+
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
 });
