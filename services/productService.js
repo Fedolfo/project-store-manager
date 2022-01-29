@@ -17,14 +17,7 @@ const findByIdProduct = async (id) => {
   return getByid;
 };
 
-const updateProduct = async (id, name, quantity) => {
-  const checkIdProduct = await verifyIdProduct(id);
-  if (checkIdProduct.length === 0) {
-    return { code: 404, message: 'Product not found' };
-  }
-
-  return productModel.update(id, name, quantity);
-};
+const updateProduct = async (id, name, quantity) => productModel.update(id, name, quantity);
 
 const removeProduct = async (id) => {
   const checkIdProduct = await verifyIdProduct(id);
@@ -37,6 +30,7 @@ const removeProduct = async (id) => {
 };
 
 module.exports = {
+  verifyIdProduct,
   getAllProducts,
   createProduct,
   findByIdProduct,

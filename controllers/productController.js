@@ -30,10 +30,10 @@ const updateProduct = async (req, res) => {
 
   const updateStore = await productService.updateProduct(id, name, quantity);
 
-  if (updateStore.message) {
-    return res.status(updateStore.code).json({ message: updateStore.message });
+  const checkIdProduct = await productService.verifyIdProduct(id);
+  if (checkIdProduct.length === 0) {
+    return res.status(404).json({ message: 'Product not found' });
   }
-
   res.status(200).json(updateStore);
 };
 
