@@ -18,8 +18,20 @@ const findByIdSales = async (id) => {
   return result;
 };
 
+const updateSales = async (id, products) => {
+  await findByIdSales(Number(id));
+  await Promise.all(
+    products.map(async (product) => {
+      await productService.findByIdProduct(product.product_id);
+    }),
+  );
+  const upSales = await salesModel.update(id, products);
+  return upSales;
+};
+
 module.exports = {
   getlAllSales,
   createSales,
   findByIdSales,
+  updateSales,
 };

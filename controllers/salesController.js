@@ -20,8 +20,18 @@ const findByIdProduct = async (req, res) => {
   res.status(200).json(getById);
 };
 
+const updateSales = async (req, res) => {
+  const { id } = req.params;
+  const products = req.body;
+
+  const getByUpdate = await salesService.updateSales(id, products);
+
+  res.status(200).json(getByUpdate);
+};
+
 module.exports = {
   getAllSales,
   createSales,
   findByIdProduct,
+  updateSales,
 };

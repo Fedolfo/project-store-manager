@@ -42,6 +42,11 @@ app.get('/sales', rescue(salesController.getAllSales));
 
 app.get('/sales/:id', rescue(salesController.findByIdProduct));
 
+app.put('/sales/:id',
+  validateSales,
+  validateProductId,
+  rescue(salesController.updateSales));
+
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
 });
