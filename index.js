@@ -1,14 +1,10 @@
 require('dotenv').config();
 const express = require('express');
-const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-const productController = require('./controllers/productController');
-const salesController = require('./controllers/salesController');
-const validationSales = require('./middlewares/validationsSales');
-const validationProducts = require('./middlewares/validationsProduct');
+const errorDomain = require('./middlewares/error');
+const products = require('./controllers/productController');
+const sales = require('./controllers/salesController');
 
-const { validateName, validateQuantity } = validationProducts;
-const { validateProductId, validateSales } = validationSales;
 const app = express();
 // não remova esse endpoint, e para o avaliador funcionar
 app.use(bodyParser.json());
@@ -17,35 +13,41 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.get('/products', rescue(productController.getAllProducts));
+app.use('/products', products);
 
-app.get('/products/:id', rescue(productController.findByIdProduct));
+app.use('/sales', sales);
 
-app.post('/products',
-  validateName,
-  validateQuantity,
-  rescue(productController.createProduct));
+// app.get('/products', rescue(productController.getAllProducts));
 
-app.put('/products/:id',
-  validateQuantity,
-  validateName,
-  rescue(productController.updateProduct));
+// app.get('/products/:id', rescue(productController.findByIdProduct));
 
-app.delete('/products/:id', rescue(productController.removeProduct));
+// app.post('/products',
+//   validateName,
+//   validateQuantity,
+//   rescue(productController.createProduct));
 
-app.post('/sales',
-  validateProductId,
-  validateSales,
-  rescue(salesController.createSales));
+// app.put('/products/:id',
+//   validateQuantity,
+//   validateName,
+//   rescue(productController.updateProduct));
 
-app.get('/sales', rescue(salesController.getAllSales));
+// app.delete('/products/:id', rescue(productController.removeProduct));
 
-app.get('/sales/:id', rescue(salesController.findByIdProduct));
+// app.post('/sales',
+//   validateProductId,
+//   validateSales,
+//   rescue(salesController.createSales));
 
-app.put('/sales/:id',
-  validateSales,
-  validateProductId,
-  rescue(salesController.updateSales));
+// app.get('/sales', rescue(salesController.getAllSales));
+
+// app.get('/sales/:id', rescue(salesController.findByIdProduct));
+
+// app.put('/sales/:id',
+//   validateSales,
+//   validateProductId,
+//   rescue(salesController.updateSales));
+
+app.use(errorDomain);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
