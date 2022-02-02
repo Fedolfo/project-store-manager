@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const errorDomain = require('./middlewares/error');
-const products = require('./controllers/productController');
-const sales = require('./controllers/salesController');
+const products = require('./controllers/routesProduct');
+const sales = require('./controllers/routesSales');
 
 const app = express();
 // não remova esse endpoint, e para o avaliador funcionar

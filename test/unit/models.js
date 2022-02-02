@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-const connection = require('../../../models/connection');
+const connection = require('../../models/connection');
 const productModel = require('../../models/productModel');
 
 describe('Busca todos produtos do banco (models/productModels/getAll)', () => {
@@ -121,32 +121,33 @@ describe('E chamado (models/productModels/getById)', () => {
 
       sinon.stub(connection, 'execute').resolves([[payloadProduct]]);
     })
+
+    after(() => {
+      connection.execute.restore();
+    });
+
+    it('retorna um objeto', async () => {
+      await productModel.create();
+      const response = await productModel.getById(1);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('o objeto não está vazio', async () => {
+      const response = await productModel.getById(1);
+      expect(response).to.be.not.empty;
+    })
+
+    it('tal objeto possui o "id","name" e "quantitiy"', async () => {
+      const response = await productModel.getById(1);
+
+      expect(response).to.include.all.keys(
+        'id',
+        'name',
+        'quantity'
+      );
+    });
   })
-  after(() => {
-    connection.execute.restore();
-  });
-
-  it('retorna um objeto', async () => {
-    await productModel.create();
-    const response = await productModel.getById(1);
-
-    expect(response).to.be.a('object');
-  });
-
-  it('o objeto não está vazio', () => {
-    const response = await productModel.getById(1);
-    expect(response).to.be.not.empty;
-  })
-
-  it('tal objeto possui o "id","name" e "quantitiy"', async () => {
-    const response = await productModel.getById(1);
-
-    expect(response).to.include.all.keys(
-      'id',
-      'name',
-      'quantity'
-    );
-  });
 })
 
 describe('E chamado (models/productModels/update)', () => {

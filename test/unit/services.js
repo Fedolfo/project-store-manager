@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-
+const connection = require('../../models/connection');
 const productService = require('../../services/productService');
 const productModel = require('../../models/productModel');
 
@@ -91,13 +91,13 @@ describe('Cria um novo produto (services/productService/create)', () => {
 
     describe('quando é inserido com sucesso', async () => {
       it('retorna um objeto', async () => {
-        const response = await productService.create(payloadProduct);
+        const response = await productService.createProduct(payloadProduct);
 
         expect(response).to.be.a('object');
       });
 
       it('tal objeto possui o "id" do novo produto inserido', async () => {
-        const response = await productService.create(payloadProduct);
+        const response = await productService.createProduct(payloadProduct);
 
         expect(response).to.have.a.property('id');
       });
