@@ -15,15 +15,15 @@ describe('Busca todos os produtos do banco (services/productService/getAllProduc
     });
 
     it('retorna um array', async () => {
-      const result = await productService.getAllProducts();
+      const { data } = await productService.getAllProducts();
 
-      expect(result).to.be.an('array');
+      expect(data).to.be.an('array');
     });
 
     it('o array está vazio', async () => {
-      const result = await productService.getAllProducts();
+      const { data } = await productService.getAllProducts();
 
-      expect(result).to.be.empty;
+      expect(data).to.be.empty;
     });
   });
 
@@ -43,64 +43,47 @@ describe('Busca todos os produtos do banco (services/productService/getAllProduc
     });
 
     it('retorna um array', async () => {
-      const response = await productService.getAllProducts();
+      const { data } = await productService.getAllProducts();
 
-      expect(response).to.be.an('array');
+      expect(data).to.be.an('array');
     });
 
     it('o array não está vazio', async () => {
-      const response = await productService.getAllProducts();
+      const { data } = await productService.getAllProducts();
 
-      expect(response).to.be.not.empty;
+      expect(data).to.be.not.empty;
     });
 
-    it('o array possui itens do tipo objeto', async () => {
-      const [item] = await productService.getAllProducts();
-
-      expect(item).to.be.an('object');
-    });
-
-    it('tais itens possui as propriedades: "id", "name" e "quantity"', async () => {
-      const [item] = await productService.getAllProducts();
-
-      expect(item).to.include.all.keys(
-        'id',
-        'name',
-        'quantity',
-      );
-    });
   });
 });
 
 describe('Cria um novo produto (services/productService/create)', () => {
-  describe('quando e inserido um produto retorna', () => {
-    const payloadProduct = {
-      name: 'Fralda',
-      quantity: 20
-    };
+  const payloadProduct = {
+    name: 'Fralda',
+    quantity: 20
+  };
 
-    before(async () => {
-      const execute = [{ insertId: 1 }];
+  before(async () => {
+    const execute = [{ insertId: 1 }];
 
-      sinon.stub(connection, 'execute').resolves(execute);
+    sinon.stub(connection, 'execute').resolves(execute);
+  });
+
+  after(async () => {
+    connection.execute.restore();
+  });
+
+  describe('quando é inserido com sucesso', async () => {
+    it('retorna um objeto', async () => {
+      const { data } = await productService.createProduct(payloadProduct);
+
+      expect(data).to.be.a('object');
     });
 
-    after(async () => {
-      connection.execute.restore();
-    });
+    it('tal objeto possui o "id" do novo produto inserido', async () => {
+      const { data } = await productService.createProduct(payloadProduct);
 
-    describe('quando é inserido com sucesso', async () => {
-      it('retorna um objeto', async () => {
-        const response = await productService.createProduct(payloadProduct);
-
-        expect(response).to.be.a('object');
-      });
-
-      it('tal objeto possui o "id" do novo produto inserido', async () => {
-        const response = await productService.createProduct(payloadProduct);
-
-        expect(response).to.have.a.property('id');
-      });
+      expect(data).to.have.a.property('id');
     });
   });
 })

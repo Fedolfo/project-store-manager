@@ -151,7 +151,7 @@ describe('E chamado (models/productModels/getById)', () => {
 })
 
 describe('E chamado (models/productModels/update)', () => {
-  describe('quando atualiza um produto', () => {
+  describe('quando e atualizado um produto', () => {
     before(async () => {
       const execute = { insertId: 1 }
       sinon.stub(connection, 'execute').resolves([execute])

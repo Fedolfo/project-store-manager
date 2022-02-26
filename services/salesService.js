@@ -1,7 +1,10 @@
 const salesModel = require('../models/salesModel');
 const productService = require('./productService');
 
-const getlAllSales = async () => salesModel.getAll();
+const getlAllSales = async () => {
+  const sales = await salesModel.getAll();
+  return { code: 200, data: sales };
+};
 
 const createSales = async (products) => {
   await Promise.all(
@@ -10,12 +13,15 @@ const createSales = async (products) => {
     }),
   );
   const addSale = await salesModel.create(products);
-  return addSale;
+  return { code: 201, data: addSale };
 };
 
 const findByIdSales = async (id) => {
   const result = await salesModel.getById(id);
-  return result;
+  if (result[0] === undefined) {
+    return { code: 404, data: { message: 'Sale not found' } };
+  }
+  return { code: 200, data: result };
 };
 
 const updateSales = async (id, products) => {
@@ -26,7 +32,7 @@ const updateSales = async (id, products) => {
     }),
   );
   const upSales = await salesModel.update(id, products);
-  return upSales;
+  return { code: 200, data: upSales };
 };
 
 module.exports = {
