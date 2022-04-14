@@ -12,8 +12,7 @@ app.use(bodyParser.json());
 app.get('/', (_request, response) => {
   response.send();
 });
-/* Aqui é retornado toda API, podendo entrar nela para usar para o front-end
-  usando domínios(servidores para fazer deploy) */
+
 app.use('/products', products);
 
 app.use('/sales', sales);

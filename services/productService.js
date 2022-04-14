@@ -1,5 +1,6 @@
-const productModel = require('../models/productModel'); // importamos o modelo de products
-//
+// importamos o modelo de products
+const productModel = require('../models/productModel');
+// Services: Arquitetura REST
 const getAllProducts = async () => {
   const products = await productModel.getAllProducts();
   return { code: 200, data: products };
@@ -17,7 +18,7 @@ const findByIdProduct = async (id) => {
 
   return { code: 404, data: getByid };
 };
-
+// verifica se o produto existe, função assistente para validação;
 const verifyIdProduct = async (id) => {
   const verifyProduct = await productModel.getAllProducts();
   return verifyProduct.filter((product) => Number(product.id) === Number(id));
