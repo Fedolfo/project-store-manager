@@ -9,7 +9,8 @@ jobs:
 
     - name: Install node
       uses: actions/setup-node@v1
-      with: node-version: 12
+      with:
+        node-version: 12
 
     - name: Install dependencies
       run: npm install
