@@ -14,9 +14,6 @@
 
 ## Para ser feito a instalação do projeto em sua máquina
 
-Você tem a opção de usar o [docker](https://docs.docker.com/get-docker/)
-
-Ou
 
 1. Clone o repositório
 ```bash
@@ -26,7 +23,7 @@ Ou
 ```bash
   cd project-store-manager
 ```
-1. Para ocorrer tudo de acordo para API funcionar você deve ter o arquivo .env criado
+3. Para ocorrer tudo de acordo para API funcionar, você deve ter o arquivo .env criado e adicionar o seu endereço do banco mysql
 ```bash
   MYSQL_HOST=
   MYSQL_USER=
