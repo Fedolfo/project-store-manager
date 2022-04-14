@@ -14,9 +14,6 @@
 
 ## Para ser feito a instalação do projeto em sua máquina
 
-Você tem a opção de usar o [docker](https://docs.docker.com/get-docker/)
-
-Ou
 
 1. Clone o repositório
 ```bash
