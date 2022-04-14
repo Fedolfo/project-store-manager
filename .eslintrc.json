@@ -2,8 +2,11 @@
   "env": {
     "es2020": true
   },
-  "extends": "trybe-backend",
+  "extends": "airbnb-base",
   "rules": {
-    "sonarjs/no-duplicate-string": ["error", 5]
+    "sonarjs/no-duplicate-string": [
+      "error",
+      5
+    ]
   }
 }
