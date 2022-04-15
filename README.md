@@ -3,9 +3,11 @@
 
 ## Sobre o projeto
 
+Projeto de sistema de gerênciamento de vendas
 
 ## Tecnologias utilizadas
 
+* JavaScript
 * NodeJs
 * Express
 * Mocha, Chai e Sinon
@@ -14,6 +16,7 @@
 
 ## Para ser feito a instalação do projeto em sua máquina
 
+É necessário ter [docker](https://docs.docker.com/get-docker/) e [docker-compose](https://docs.docker.com/compose/install/)
 
 1. Clone o repositório
 ```bash
@@ -23,16 +26,23 @@
 ```bash
   cd project-store-manager
 ```
-3. Para ocorrer tudo de acordo para API funcionar, você deve ter o arquivo .env criado e adicionar o seu endereço do banco mysql
+3. Suba os containêrs
 ```bash
-  MYSQL_HOST=
-  MYSQL_USER=
-  MYSQL_PASSWORD=
-  PORT=
+  npm run compose:up **ou** docker-compose up -d --build
 ```
-4. Com todas as credências registradas para fazer conexão ao seu workbench ou docker, adicione o banco StoreManager.sql(banco não populado).
-
-5. Para iniciar localmente
+4. No momento que subir os container retornara essa messagem no terminal
 ```bash
-  npm start
+  Creating db ... done
+  Creating backend_store_manager... done
+```
+5. Para adicionar o banco de dados relacionado ao projeto, deve acessar StoreManager.sql e rodar as querys de criação.(solução temporária).
+
+6. Para acessar a aplicação
+```bash
+  back-end: localhost:3000
+```
+
+7. Por fim para remover os containêrs
+```bash
+  npm run compose:down **ou** docker-compose down --remove-orphans
 ```
