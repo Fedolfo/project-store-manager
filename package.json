@@ -8,6 +8,8 @@
     "test:mocha": "npx nyc --all --include models --include services --include controllers mocha test/unit/*.js --exit",
     "start": "node index.js",
     "debug": "nodemon index.js",
+    "compose:up": "docker-compose up -d --build",
+    "compose:down": "docker-compose down --remove-orphans",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx"
   },
   "repository": {

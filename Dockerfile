@@ -10,4 +10,8 @@ COPY . .
 
 EXPOSE 3000
 
+RUN adduser -D StoreManager
+
+USER StoreManager
+
 ENTRYPOINT ["node", "index.js"]
