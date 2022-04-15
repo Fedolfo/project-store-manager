@@ -30,7 +30,7 @@ Projeto de sistema de gerênciamento de vendas
 ```bash
   npm run compose:up **ou** docker-compose up -d --build
 ```
-4. No momento que subir os container retornara essa messagem no terminal
+4. No momento que subir os containêrs retornará essa messagem no terminal
 ```bash
   Creating db ... done
   Creating backend_store_manager... done
