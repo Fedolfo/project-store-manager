@@ -3,7 +3,7 @@
 
 ## Sobre o projeto
 
-Projeto de sistema de gerênciamento de vendas
+Projeto de sistema de gerenciamento de vendas
 
 ## Tecnologias utilizadas
 
