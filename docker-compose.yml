@@ -29,9 +29,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'
-    # command: 'mysql -u root --password=123456 < /StoreManager.sql'
-    # volumes:
-    #   - /StoreManager.sql:/docker-entrypoint-initdb.d/StoreManager.sql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
       timeout: 10s
