@@ -20,7 +20,7 @@ Projeto de sistema de gerenciamento de vendas
 
 1. Clone o repositório
 ```bash
-  git clone `git@github.com:Fedolfo/project-store-manager.git`
+  git clone git@github.com:Fedolfo/project-store-manager.git
 ```
 2. Entre no arquivo
 ```bash
